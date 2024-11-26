@@ -38,6 +38,9 @@ class Menge m where
         istTeilmenge m1 m2
         && istTeilmenge m2 m1
 
+    -- Eine Menge ist echte Teilmenge einer Anderen, wenn sie Teilmenge aber nicht gleich ist
+    istEchteTeilmenge m1 m2 = istTeilmenge m1 m2 && not (sindGleich m1 m2)
+
     -- Wenn A (echte) Obermenge von B ist, ist dann B (echte) Teilmenge von A
     istObermenge m1 m2 = istTeilmenge m2 m1
     istEchteObermenge m1 m2 = istEchteTeilmenge m2 m1
