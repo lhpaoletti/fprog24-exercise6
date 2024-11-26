@@ -24,6 +24,29 @@ class Menge m where
     nichtImplementierbar :: Fehlermeldung -> m
     zeige :: m -> MengeAlsZeichenreihe
 
-    -- Protoimplementierungen
+
+    -- PROTOIMPLEMENTIERUNGEN --
+
     istKeinGueltigerMengenwert = error
-    nichtImplementierbar       = error
+    nichtImplementierbar = error
+    komplementiere = zieheab allMenge
+
+    -- Zwei Mengen sind gleich, wenn sie Teilmengen voneinander sind
+    sindGleich m1 m2 =
+        istTeilmenge m1 m2
+        && istTeilmenge m2 m1
+
+    -- Wenn A (echte) Obermenge von B ist, ist dann B (echte) Teilmenge von A
+    istObermenge m1 m2 = istTeilmenge m2 m1
+    istEchteObermenge m1 m2 = istEchteTeilmenge m2 m1
+
+    -- Zwei Mengen sind elementefremd, wenn ihrer Schnitt die Leeremenge ist
+    sindElementeFremd = sindGleich leereMenge . schneide
+
+    -- Zwei Mengen sind quer-ueberlappend, wenn sie...
+    --   ... mindestens ein Element gemeinsam haben
+    --   ... jeweils keine Teilmenge voneinander sind
+    sindQuerUeberlappend m1 m2 =
+        not . sindElementeFremd $ m1 m2
+        && not . istTeilmenge $ m1 m2
+        && not . istTeilmenge & m2 m1
