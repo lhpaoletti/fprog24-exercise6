@@ -43,12 +43,12 @@ class Menge m where
     istEchteObermenge m1 m2 = istEchteTeilmenge m2 m1
 
     -- Zwei Mengen sind elementefremd, wenn ihrer Schnitt die Leeremenge ist
-    sindElementeFremd = sindGleich leereMenge . schneide
+    sindElementeFremd m1 = sindGleich leereMenge . schneide m1
 
     -- Zwei Mengen sind quer-ueberlappend, wenn sie...
     --   ... mindestens ein Element gemeinsam haben
     --   ... jeweils keine Teilmenge voneinander sind
     sindQuerUeberlappend m1 m2 =
-        not . sindElementeFremd $ m1 m2
-        && not . istTeilmenge $ m1 m2
-        && not . istTeilmenge & m2 m1
+        not (sindElementeFremd m1 m2)
+        && not (istTeilmenge m1 m2)
+        && not (istTeilmenge m2 m1)
