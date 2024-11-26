@@ -2,8 +2,10 @@
 -- Datum: 26.11.24
 
 module Menge where
-import Types
 
+
+type Fehlermeldung        = String
+type MengeAlsZeichenreihe = String
 
 class Menge m where
     leereMenge :: m
